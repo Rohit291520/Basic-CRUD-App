@@ -1,0 +1,62 @@
+<div class="col-xs-12">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="col-xs-3">Description</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks; let i = index">
+        <td class="col-xs-3">{{ task.description }}</td>
+        <td class="col-xs-3">{{ task.priority }}</td>
+        <td class="col-xs-3">{{ task.status }}</td>
+        <td class="col-xs-5">
+          <button type="button" class="btn btn-danger" (click)="onDelete( task.name )"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button>
+          &nbsp;<button type="button" class="btn btn-primary" (click)="onUpdate( task.name )"><span class="glyphicon glyphicon-edit"></span>&nbsp;Update</button>
+        </td>
+      </tr>
+      <ng-template [ngIf]="showTaskForm">
+        <tr>
+          <td colspan="4">
+            <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+              <div class="form-group col-xs-3">
+                <input type="text" class="form-control" formControlName="description" />
+              </div>
+              <div class="form-group col-xs-3">
+                <input type="hidden" class="form-control" formControlName="id" />
+                <select class="form-control" formControlName="priority">
+                  <option value="">Please Select</option>
+                  <option *ngFor="let priorityEl of priorities" [value]="priorityEl">{{priorityEl}}</option>
+                </select>
+              </div>
+              <div class="form-group col-xs-3">
+                <select class="form-control" formControlName="status">
+                  <option value="">Please Select</option>
+                  <option *ngFor="let statusEl of statuses" [value]="statusEl">{{statusEl}}</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" [disabled]="!taskForm.valid" class="btn btn-success">{{ ( isEdit ? 'Edit' : 'Add'
+                  ) }}</button>
+              </div>
+            </form>
+          </td>
+        </tr>
+      </ng-template>
+      <tr *ngIf="message">
+        <td colspan="4">
+          <p class="alert alert-info">{{ message }}</p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <button type="button" class="btn btn-primary" (click)="onAddTaskRow()">Add a new row</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
