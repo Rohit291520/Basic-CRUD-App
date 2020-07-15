@@ -2,7 +2,7 @@
 
 This is basic CRUD operation in Angular using Reactive Form
 
-# For Running Project
+# Running Project
 
 Clone the repository on your local machine and run "npm install" for installing required dependencies
 
